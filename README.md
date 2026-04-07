@@ -8,7 +8,7 @@ Aplikasi ini berjalan **100% di sisi klien (Client-Side)**. Artinya, semua prose
 
 ![Tampilan Awal ConvFile](screenshot/Screenshot.png)
 
-*Antarmuka pengguna ConvFile yang bersih dan modern. Gambar di atas menunjukkan fitur konversi Word ke PDF dengan tampilan jendela *workspace*.*
+*Halaman utama (Landing Page) ConvFile Versi 2.0. Desain antarmuka yang modern, responsif, dan ramah pengguna dengan mode terang/gelap.*
 
 ## ✨ Fitur Utama
 
