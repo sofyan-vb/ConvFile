@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConvFile - Professional PDF Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://unpkg.com/docx-preview@0.1.15/dist/docx-preview.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  
+
+    <script>var pdfjsLib = window['pdfjs-dist/build/pdf'];</script>
+</head>
+<body>
+
+    <section id="landing-view" class="landing-container">
+        <nav class="landing-nav">
+            <div class="brand">
+                <div class="brand-icon"><i class="fas fa-layer-group text-white"></i></div>
+                <span>ConvFile</span>
+            </div>
+            <button id="theme-toggle-landing" class="btn-icon"><i class="fas fa-moon"></i></button>
+        </nav>
+
+        <div class="landing-content">
+            <div class="landing-text">
+                <span class="badge-new">Versi 2.0 • All-in-One</span>
+                <h1>Satu Website untuk <br><span class="text-gradient">Semua Dokumen</span></h1>
+                <p>Kelola PDF, Word, Excel, PPT, dan Gambar dalam satu tempat. Cepat, ringan, dan gratis tanpa batasan.</p>
+                <div class="cta-group">
+                    <button onclick="enterApp()" class="btn-start">
+                        Mulai Sekarang <i class="fas fa-rocket"></i>
+        </button>
+                    <div class="mini-stats">
+                        <span><i class="fas fa-shield-alt text-green"></i> Aman & Privat</span>
+                    </div>
+                </div>
+            </div>
+            <div class="landing-image">
+                <div class="tools-illustration">
+                    <div class="circle-bg"></div>
+                    <div class="main-icon pulse-slow"><i class="fas fa-file-pdf"></i></div>
+                    <div class="orbit-icon icon-word float-1"><i class="fas fa-file-word"></i></div>
+                    <div class="orbit-icon icon-excel float-2"><i class="fas fa-file-excel"></i></div>
+                    <div class="orbit-icon icon-ppt float-3"><i class="fas fa-file-powerpoint"></i></div>
+                    <div class="orbit-icon icon-img float-1"><i class="fas fa-file-image"></i></div>
+                    <div class="orbit-icon icon-zip float-2"><i class="fas fa-file-zipper"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="app-container" class="app-container" style="display: none;">
+        <aside class="sidebar">
+            <div class="brand" onclick="showDashboard()">
+                <div class="brand-icon"><i class="fas fa-layer-group text-white"></i></div>
+                <span>ConvFile</span>
+            </div>
+            <nav class="nav-menu custom-scroll">
+                <button class="nav-item active" onclick="showDashboard()">
+                    <i class="fas fa-th-large"></i> <span>Dashboard</span>
+                </button>
+                <div id="menu-utils" class="nav-group">
+                    <p class="menu-label">UTILITIES</p>
+                    <button class="nav-item" onclick="selectTool('merge-pdf')"><i class="fas fa-layer-group icon-purple"></i> <span>Merge PDF</span></button>
+                    <button class="nav-item" onclick="selectTool('split-pdf')"><i class="fas fa-scissors icon-red"></i> <span>Split PDF</span></button>
+                    <button class="nav-item" onclick="selectTool('compress-pdf')"><i class="fas fa-file-zipper icon-green"></i> <span>Compress PDF</span></button>
+                </div>
+                <div id="menu-to-pdf" class="nav-group">
+                    <p class="menu-label mt-4">KONVERSI KE PDF</p>
+                    <button class="nav-item" onclick="selectTool('img-to-pdf')"><i class="fas fa-file-image icon-yellow"></i> <span>JPG/PNG ke PDF</span></button>
+                    <button class="nav-item" onclick="selectTool('word-to-pdf')"><i class="fas fa-file-word icon-blue"></i> <span>Word ke PDF</span></button>
+                    <button class="nav-item" onclick="selectTool('ppt-to-pdf')"><i class="fas fa-file-powerpoint icon-orange"></i> <span>PPT ke PDF</span></button>
+                    <button class="nav-item" onclick="selectTool('excel-to-pdf')"><i class="fas fa-file-excel icon-green"></i> <span>Excel ke PDF</span></button>
+                </div>
+                <div id="menu-from-pdf" class="nav-group">
+                    <p class="menu-label mt-4">DARI PDF</p>
+                    <button class="nav-item" onclick="selectTool('pdf-to-word')"><i class="fas fa-file-word icon-blue"></i> <span>PDF ke Word</span></button>
+                    <button class="nav-item" onclick="selectTool('pdf-to-ppt')"><i class="fas fa-file-powerpoint icon-orange"></i> <span>PDF ke PPT</span></button>
+                    <button class="nav-item" onclick="selectTool('pdf-to-excel')"><i class="fas fa-file-excel icon-green"></i> <span>PDF ke Excel</span></button>
+                    <button class="nav-item" onclick="selectTool('pdf-to-jpg')"><i class="fas fa-file-image icon-yellow"></i> <span>PDF ke JPG</span></button>
+                    <button class="nav-item" onclick="selectTool('pdf-to-pdfa')"><i class="fas fa-file-pdf icon-blue"></i> <span>PDF ke PDF/A</span></button>
+                </div>
+            </nav>
+            <div class="sidebar-history">
+                <div class="history-header-mini">
+                    <span>Riwayat Terakhir</span>
+                    <button onclick="clearHistory()" title="Hapus Semua"><i class="fas fa-trash-alt"></i></button>
+                </div>
+                <div id="mini-history-list" class="custom-scroll"></div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+
+                <div class="header-left-group">
+                    <button id="back-btn" class="btn-icon" title="Kembali">
+                        <i class="fas fa-arrow-left"></i>
+        </button>
+
+                <div class="header-info">
+                    <h2 id="page-title">Dashboard</h2>
+                    <span class="status-badge"><span class="dot"></span> Online</span>
+                </div>
+                </div>
+                <button id="theme-toggle" class="btn-icon"><i class="fas fa-moon"></i></button>
+            </header>
+
+            <div class="content-wrapper custom-scroll">
+                <div id="dashboard-view" class="dashboard-grid">
+                    <div class="hero-section">
+                        <h1>Selamat Datang di ConvFile</h1>
+                        <p>Pilih alat di bawah ini untuk memulai pekerjaan Anda.</p>
+                    </div>
+                    
+                    <div class="tools-category">
+                        <h3>Alat Populer</h3>
+                        <div class="grid-container">
+                            <div class="tool-card" onclick="selectTool('img-to-pdf')">
+                                <div class="card-icon bg-yellow"><i class="fas fa-file-image"></i></div>
+                                <h4>JPG ke PDF</h4>
+                                <p>Ubah gambar menjadi dokumen PDF.</p>
+                            </div>
+                            <div class="tool-card" onclick="selectTool('pdf-to-word')">
+                                <div class="card-icon bg-blue"><i class="fas fa-file-word"></i></div>
+                                <h4>PDF ke Word</h4>
+                                <p>Edit PDF Anda di Microsoft Word.</p>
+                            </div>
+                            <div class="tool-card" onclick="selectTool('merge-pdf')">
+                                <div class="card-icon bg-purple"><i class="fas fa-layer-group"></i></div>
+                                <h4>Merge PDF</h4>
+                                <p>Gabungkan banyak PDF jadi satu.</p>
+                            </div>
+                            <div class="tool-card" onclick="selectTool('compress-pdf')">
+                                <div class="card-icon bg-green"><i class="fas fa-file-zipper"></i></div>
+                                <h4>Kompres PDF</h4>
+                                <p>Kecilkan ukuran file PDF.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="workspace-view" class="workspace" style="display: none;">
+                    <div class="workspace-centerer">
+                        <div class="upload-card">
+                            <div class="upload-header">
+                                <div class="icon-circle pulse"><i class="fas fa-cloud-upload-alt"></i></div>
+                                <h3 id="tool-name-display">Upload File</h3>
+                                <p id="upload-instruction">Pilih file untuk diproses</p>
+                            </div>
+                            <div class="drop-zone" id="drop-zone">
+                                <span class="btn-browse">Pilih File</span>
+                                <input type="file" id="file-input" hidden>
+                            </div>
+                            <div id="file-list" class="file-list custom-scroll"></div>
+                            <button id="convert-btn" class="btn-primary" disabled>Mulai Proses</button>
+                        </div>
+                        <div class="history-panel-main">
+                            <div class="history-header">
+                                <h3><i class="fas fa-history"></i> Riwayat Proses</h3>
+                                <button class="btn-text-red" onclick="clearHistory()">Hapus Semua</button>
+                            </div>
+                            <div id="main-history-list" class="history-list-main">
+                                <div class="empty-state">Belum ada riwayat konversi.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="doc-container"></div>
+    <div id="toast-container"></div>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <p id="loading-text">Memproses...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
