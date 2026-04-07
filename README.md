@@ -6,7 +6,7 @@ Aplikasi ini berjalan **100% di sisi klien (Client-Side)**. Artinya, semua prose
 
 ## 🖥️ Tampilan Aplikasi
 
-![Tampilan Awal ConvFile](screenshot.png)
+![Tampilan Awal ConvFile](screenshot/screenshot.png)
 
 *Antarmuka pengguna ConvFile yang bersih dan modern. Gambar di atas menunjukkan fitur konversi Word ke PDF dengan tampilan jendela *workspace*.*
 
